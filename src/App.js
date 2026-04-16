@@ -7,7 +7,7 @@ function App() {
   const checkBackend = () => {
     setLoading(true);
 
-    fetch("/api")
+    fetch("http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com")
       .then(res => res.json())
       .then(data => {
         setData(data);
