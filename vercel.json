@@ -1,8 +1,12 @@
 {
-    "routes": [
+    "rewrites": [
         {
-            "src": "/api/(.*)",
-            "dest": "http://15.206.211.169:3000/$1"
+            "source": "/api",
+            "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/"
+        },
+        {
+            "source": "/api/(.*)",
+            "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/$1"
         }
     ]
 }
