@@ -1,12 +1,12 @@
 {
-    "rewrites": [
-        {
-            "source": "/api",
-            "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/"
-        },
-        {
-            "source": "/api/(.*)",
-            "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/$1"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/api",
+      "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com/$1"
+    }
+  ]
 }
