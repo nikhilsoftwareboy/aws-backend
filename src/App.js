@@ -4,19 +4,30 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const checkBackend = () => {
+  const checkBackend = async () => {
     setLoading(true);
 
-    fetch("http://my-load-balancer-1875906113.ap-south-1.elb.amazonaws.com")
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setData({ error: "Failed to connect backend" });
-        setLoading(false);
-      });
+    try {
+      const res = await fetch("/api");
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        // Handle rate limit error
+        setData({
+          error: result.message,
+          server: result.server,
+          time: result.time
+        });
+      } else {
+        setData(result);
+      }
+
+    } catch (err) {
+      setData({ error: "Failed to connect backend" });
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -43,16 +54,23 @@ function App() {
 
       {data && (
         <div style={{ marginTop: "30px" }}>
+
           {data.error ? (
-            <p style={{ color: "red" }}>{data.error}</p>
+            <>
+              <h2 style={{ color: "red" }}>❌ {data.error}</h2>
+              <p><b>Server:</b> {data.server}</p>
+              <p><b>Time:</b> {data.time}</p>
+            </>
           ) : (
             <>
               <h2 style={{ color: "green" }}>✅ Backend Connected</h2>
               <p><b>Message:</b> {data.message}</p>
               <p><b>Server:</b> {data.server}</p>
               <p><b>Time:</b> {data.time}</p>
+              <p><b>Requests handled:</b> {data.requests}</p>
             </>
           )}
+
         </div>
       )}
 
