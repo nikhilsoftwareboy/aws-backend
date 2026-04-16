@@ -41,9 +41,9 @@ function App() {
       {data && (
         <div style={{ marginTop: "20px" }}>
           {error ? (
-             <h2 style={{ color: "red" }}>❌ {error}</h2>
+            <h2 style={{ color: "red" }}>❌ {error}</h2>
           ) : (
-             <h2 style={{ color: "green" }}>✅ Backend Connected</h2>
+            <h2 style={{ color: "green" }}>✅ Backend Connected</h2>
           )}
 
           <p><b>Message:</b> {data.message}</p>
